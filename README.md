@@ -29,16 +29,17 @@ _Let’s build that._
 </br>
 
 ## Kata challenges
+
 Use this API https://api.watchmode.com/docs/ to allows users to:
+
 1. browse shows
 2. add shows to their to-watch list
 3. apply filters:
-    1. genre
-    2. rating (R, PG, G, etc.)
-    3. streaming service
-    4. price (free vs $$)
+   1. genre
+   2. rating (R, PG, G, etc.)
+   3. streaming service
+   4. price (free vs $$)
 4. on-click -> take me to show?
-
 
 ---
 
