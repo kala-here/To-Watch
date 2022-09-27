@@ -8,45 +8,29 @@ https://todomvc.com/
       <h1>TO<span class="text--linethrough">DO</span>-WATCH</h1>
 
       <input
-        aria-label="new to watch item"
+        aria-label="new to-watch item"
         autofocus
         placeholder="whatchya thinkin?"
+        @keyup.enter="addTodo"
       />
     </header>
-    <!-- <section class="main" v-show="todos.length">
-      <input
+    <section class="main" v-show="todos.length">
+      <!-- <input
         id="toggle-all"
         class="toggle-all"
         type="checkbox"
         :checked="remaining === 0"
         @change="toggleAll"
       />
-      <label for="toggle-all">Mark all as complete</label>
-      <ul class="todo-list">
-        <li
-          v-for="todo in filteredTodos"
-          class="todo"
-          :key="todo.id"
-          :class="{ completed: todo.completed, editing: todo === editedTodo }"
-        >
+      <label for="toggle-all">Mark all as complete</label> -->
+      <ul aria-label="to-watch list">
+        <li v-for="todo in filteredTodos" class="todo" :key="todo.id">
           <div class="view">
-            <input class="toggle" type="checkbox" v-model="todo.completed" />
-            <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-            <button class="destroy" @click="removeTodo(todo)"></button>
+            <label>{{ todo.title }}</label>
           </div>
-          <input
-            v-if="todo === editedTodo"
-            class="edit"
-            type="text"
-            v-model="todo.title"
-            @vnode-mounted="({ el }) => el.focus()"
-            @blur="doneEdit(todo)"
-            @keyup.enter="doneEdit(todo)"
-            @keyup.escape="cancelEdit(todo)"
-          />
         </li>
       </ul>
-    </section> -->
+    </section>
     <!-- <footer class="footer" v-show="todos.length">
       <span class="todo-count">
         <strong>{{ remaining }}</strong>
