@@ -1,10 +1,24 @@
 import { mount } from '@vue/test-utils';
+import { beforeEach, describe } from 'vitest';
 import TodoApp from '../TodoApp.vue';
+import { getPlaceholder } from './utils/helpers';
 
-test('renders a todo', () => {
-  const wrapper = mount(TodoApp);
+describe('To watch tests', () => {
+  let wrapper;
 
-  const todo = wrapper.get('[data-test="todo"]');
+  beforeEach(() => {
+    wrapper = mount(TodoApp);
+  });
 
-  expect(todo.text()).toBe('Learn Vue.js 3');
+  it('renders the header', () => {
+    const header = wrapper.get('.todoapp > .header');
+
+    expect(header.text()).toBe('TODO-WATCH');
+  });
+
+  it('has an input field with placeholder text "what to watch"', () => {
+    expect(getPlaceholder(wrapper, 'new to watch item')).toBe(
+      'whatchya thinkin?'
+    );
+  });
 });
