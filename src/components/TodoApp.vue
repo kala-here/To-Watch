@@ -32,6 +32,10 @@ https://todomvc.com/
           <div class="view">
             <input class="toggle" type="checkbox" v-model="todo.completed" />
             <label>{{ todo.title }}</label>
+            <button
+              :aria-label="`remove ${todo.title.toLowerCase()} from the list`"
+              @click="removeTodo(todo)"
+            />
           </div>
         </li>
       </ul>
