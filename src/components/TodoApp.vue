@@ -24,8 +24,13 @@ https://todomvc.com/
       />
       <label for="toggle-all">Mark all as complete</label> -->
       <ul aria-label="to-watch list">
-        <li v-for="todo in filteredTodos" class="todo" :key="todo.id">
+        <li
+          v-for="todo in filteredTodos"
+          :key="todo.id"
+          :aria-label="todo.completed ? 'watched item' : 'to-watch item'"
+        >
           <div class="view">
+            <input class="toggle" type="checkbox" v-model="todo.completed" />
             <label>{{ todo.title }}</label>
           </div>
         </li>
