@@ -15,14 +15,6 @@ https://todomvc.com/
       />
     </header>
     <section class="main" v-show="todos.length">
-      <!-- <input
-        id="toggle-all"
-        class="toggle-all"
-        type="checkbox"
-        :checked="remaining === 0"
-        @change="toggleAll"
-      />
-      <label for="toggle-all">Mark all as complete</label> -->
       <ul aria-label="to-watch list">
         <li
           v-for="todo in filteredTodos"
@@ -40,54 +32,54 @@ https://todomvc.com/
         </li>
       </ul>
     </section>
-    <!-- <footer class="footer" v-show="todos.length">
-      <span class="todo-count">
-        <strong>{{ remaining }}</strong>
-        <span>{{ remaining === 1 ? 'item' : 'items' }} left</span>
-      </span>
-      <ul class="filters">
-        <li>
-          <a href="#/all" :class="{ selected: visibility === 'all' }">All</a>
-        </li>
-        <li>
-          <a href="#/active" :class="{ selected: visibility === 'active' }"
-            >Active</a
-          >
-        </li>
-        <li>
-          <a
-            href="#/completed"
-            :class="{ selected: visibility === 'completed' }"
-            >Completed</a
-          >
-        </li>
-      </ul>
+
+    <div v-show="todos.length">
       <button
+        v-for="key of Object.keys(filterOptions)"
+        :key="key"
+        :class="{ selected: visibility === key }"
+        :aria-label="filterOptions[key].ariaLabel"
+        @click="onFilterChange(key)"
+      >
+        {{ filterOptions[key].label }}
+      </button>
+      <!-- <button
         class="clear-completed"
         @click="removeCompleted"
         v-show="todos.length > remaining"
       >
         Clear completed
-      </button>
-    </footer> -->
+      </button> -->
+    </div>
   </section>
 </template>
 
 <script>
 const STORAGE_KEY = 'vue-todomvc';
 
-const filters = {
-  all: (todos) => todos,
-  active: (todos) => todos.filter((todo) => !todo.completed),
-  completed: (todos) => todos.filter((todo) => todo.completed),
-};
-
 export default {
   // app initial state
   data: () => ({
     todos: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
     editedTodo: null,
-    visibility: 'all',
+    visibility: 'ALL',
+    filterOptions: {
+      ALL: {
+        ariaLabel: 'click to show all items',
+        filterFunction: (todos) => todos,
+        label: 'All',
+      },
+      WATCH_LIST: {
+        ariaLabel: 'click to show only not-yet-watched items',
+        filterFunction: (todos) => todos.filter((todo) => !todo.completed),
+        label: 'Watch List',
+      },
+      WATCHED: {
+        ariaLabel: 'click to show only watched items',
+        filterFunction: (todos) => todos.filter((todo) => todo.completed),
+        label: 'Watched',
+      },
+    },
   }),
 
   // watch todos change for localStorage persistence
@@ -100,27 +92,18 @@ export default {
     },
   },
 
-  mounted() {
-    window.addEventListener('hashchange', this.onHashChange);
-    this.onHashChange();
-  },
-
   computed: {
     filteredTodos() {
-      return filters[this.visibility](this.todos);
+      return this.filterOptions[this.visibility].filterFunction(this.todos);
     },
     remaining() {
-      return filters.active(this.todos).length;
+      return this.filterOptions['watch-list'].filterFunction(this.todos).length;
     },
   },
 
   // methods that implement data logic.
   // note there's no DOM manipulation here at all.
   methods: {
-    toggleAll(e) {
-      this.todos.forEach((todo) => (todo.completed = e.target.checked));
-    },
-
     addTodo(e) {
       const value = e.target.value.trim();
       if (!value) {
@@ -160,23 +143,31 @@ export default {
     },
 
     removeCompleted() {
-      this.todos = filters.active(this.todos);
+      this.todos = this.filterOptions['watch-list'].filterFunction(this.todos);
     },
 
-    onHashChange() {
-      var visibility = window.location.hash.replace(/#\/?/, '');
-      if (filters[visibility]) {
-        this.visibility = visibility;
-      } else {
-        window.location.hash = '';
-        this.visibility = 'all';
-      }
+    onFilterChange(visibility) {
+      this.visibility = this.filterOptions[visibility] ? visibility : 'ALL';
     },
   },
 };
 </script>
-<style>
+
+<style lang="scss">
 .text--linethrough {
   text-decoration: line-through;
+}
+.selected {
+  border: 1px solid yellow;
+  margin-left: 10px;
+}
+ul {
+  margin: 20px;
+  li {
+    padding: 5px;
+    a {
+      padding: 10px;
+    }
+  }
 }
 </style>

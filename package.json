@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "jsdom": "^20.0.0",
+    "sass": "^1.55.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
     "@vue/test-utils": "^2.0.2",
     "prettier": "^2.7.1",
+    "sass-loader": "^13.0.2",
     "vite": "^3.0.1",
     "vitest": "^0.23.4",
     "vue-jest": "^5.0.0-alpha.10"
