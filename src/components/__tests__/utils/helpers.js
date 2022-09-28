@@ -10,6 +10,10 @@ export const getElement = (wrapper, ariaLabel) => {
   return wrapper.find(`[aria-label="${ariaLabel}"]`);
 };
 
+export const getElements = (wrapper, ariaLabel) => {
+  return wrapper.findAll(`[aria-label="${ariaLabel}"]`);
+};
+
 export const getAriaLabel = (element) => {
   return element.attributes('aria-label');
 };

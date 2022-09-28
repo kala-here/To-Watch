@@ -126,12 +126,24 @@ describe('To watch tests', () => {
     expect(filterElements.WATCHED).not.toBeNull();
     await filterElements.WATCHED.trigger('click');
     expectListLengthToBe(1);
+
+    expect(filterElements.ALL).not.toBeNull();
+    await filterElements.ALL.trigger('click');
+    expectListLengthToBe(3);
   });
 
-  // it('allows user to clear out all watched items', async () => {
-  //   const clearBtn = getElement(wrapper, 'clear all completed items');
-  //   expect(clearBtn.text()).toBe('Clear Watched Items');
-  // });
+  it('allows user to clear out all watched items', async () => {
+    expectListLengthToBe(3);
+
+    const clearBtn = getElement(wrapper, 'clear all completed items');
+    expect(clearBtn.text()).toBe('Clear Watched Items');
+    await clearBtn.trigger('click');
+
+    expectListLengthToBe(2);
+    expect(filterElements.WATCHED).not.toBeNull();
+    await filterElements.WATCHED.trigger('click');
+    expectListLengthToBe(0);
+  });
 
   // ----------- HELPERS -----------
   const setAndTestCheckedBox = async (watchListItem) => {

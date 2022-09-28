@@ -66,14 +66,14 @@ https://todomvc.com/
         </button>
       </section>
 
-      <!-- <button
+      <button
         class="mt-4"
         @click="removeCompleted"
         v-show="todos.length > remaining"
         aria-label="clear all completed items"
       >
         Clear Watched Items
-      </button> -->
+      </button>
     </footer>
   </div>
 </template>
@@ -168,7 +168,7 @@ export default {
     },
 
     removeCompleted() {
-      this.todos = this.filterOptions['watch-list'].filterFunction(this.todos);
+      this.todos = this.filterOptions.WATCH_LIST.filterFunction(this.todos);
     },
 
     onFilterChange(visibility) {
@@ -180,13 +180,14 @@ export default {
 
 <style lang="scss">
 .to-watch__list {
-  max-height: 46vh;
+  max-height: 42vh;
   overflow-y: auto;
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
   border-radius: 4px;
   padding-left: 24px;
   padding-right: 24px;
+  padding-bottom: 24px;
 
   &-item {
     padding: 8px;
