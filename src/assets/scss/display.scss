@@ -1,0 +1,61 @@
+// MARGIN --------------
+.ma-2 {
+  margin: 8px;
+}
+.ml-2 {
+  margin-left: 8px;
+}
+.mt-4 {
+  margin-top: 16px;
+}
+.mb-4 {
+  margin-bottom: 16px;
+}
+.my-8 {
+  margin-bottom: 32px;
+}
+.my-4 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+// PADDING --------------
+.pa-12 {
+  padding: 48px;
+}
+
+// WIDTH --------------
+.w-full {
+  width: 100%;
+}
+.w-500 {
+  width: 500px;
+}
+.w-18 {
+  width: 18px;
+}
+
+// HEIGHT --------------
+
+
+// FLEX --------------
+.d-flex {
+  display: flex;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+.flex-column {
+  flex-flow: column;
+}
+.align-center {
+  align-items: center;
+}
+.justify-center {
+  justify-items: center;
+}
+
+// DEBUGGING HELP -----------
+.bg--red {
+  background: red;
+}
