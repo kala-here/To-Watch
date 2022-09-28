@@ -10,7 +10,13 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      scss: {},
+      scss: {
+        additionalData: `
+          @import "./src/assets/scss/display.scss";
+          @import "./src/assets/scss/font.scss";
+          @import "./src/assets/scss/form.scss";
+      `,
+      },
     },
   },
   plugins: [vue()],

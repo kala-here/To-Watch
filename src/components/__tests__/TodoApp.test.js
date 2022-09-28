@@ -1,8 +1,8 @@
-import Vue from '@vitejs/plugin-vue';
 import { mount } from '@vue/test-utils';
 import { beforeEach, describe, expect } from 'vitest';
 import TodoApp from '../TodoApp.vue';
 import {
+  getByText,
   getPlaceholder,
   getElement,
   getCheckbox,
@@ -65,8 +65,11 @@ describe('To watch tests', () => {
 
   it('can remove an item from the watch list', async () => {
     expectListLengthToBe(1);
-
-    await removeItemFromList(addingSingleItemTitle);
+    const watchListItem = getVisibleListItems()[0];
+    await removeItemFromList({
+      parentElement: watchListItem,
+      title: addingSingleItemTitle,
+    });
     expectListLengthToBe(0);
   });
 
@@ -85,21 +88,21 @@ describe('To watch tests', () => {
       expectTextInListAtIndex(showTitle, i);
     }
 
-    await removeItemFromList(addingItems.GREAT_BAKING_SHOW);
+    await removeItemFromList({ title: addingItems.GREAT_BAKING_SHOW });
     expectListLengthToBe(addingItemKeys.length - 1);
     expectTextInListAtIndex(addingItems.QUEER_EYE, 0);
     expectTextInListAtIndex(addingItems.ATLANTA, 1);
 
-    await removeItemFromList(addingItems.QUEER_EYE);
+    await removeItemFromList({ title: addingItems.QUEER_EYE });
     expectListLengthToBe(addingItemKeys.length - 2);
     expectTextInListAtIndex(addingItems.ATLANTA, 0);
 
-    await removeItemFromList(addingItems.ATLANTA);
+    await removeItemFromList({ title: addingItems.ATLANTA, index: 0 });
     expectListLengthToBe(addingItemKeys.length - 3);
   });
 
   it('allows user to filter on All, Watched, and Not Watched', async () => {
-    const filterLinks = wrapper.findAll('button');
+    const filterLinks = wrapper.findAll('.filter-button');
     expect(filterLinks).toHaveLength(3);
 
     expectListLengthToBe(0);
@@ -125,6 +128,11 @@ describe('To watch tests', () => {
     expectListLengthToBe(1);
   });
 
+  // it('allows user to clear out all watched items', async () => {
+  //   const clearBtn = getElement(wrapper, 'clear all completed items');
+  //   expect(clearBtn.text()).toBe('Clear Watched Items');
+  // });
+
   // ----------- HELPERS -----------
   const setAndTestCheckedBox = async (watchListItem) => {
     const checkbox = getCheckbox(watchListItem);
@@ -137,7 +145,15 @@ describe('To watch tests', () => {
     expect(getAriaLabel(watchListItem)).toBe('watched item');
   };
 
-  const removeItemFromList = async (title) => {
+  const removeItemFromList = async ({ parentElement, title, index }) => {
+    parentElement = parentElement ?? getByText(wrapper, title);
+
+    if (index > -1) {
+      expectTextInListAtIndex(title, index);
+      parentElement = getVisibleListItems()[index];
+    }
+
+    await parentElement.trigger('mouseenter');
     const destroyButton = getElement(
       wrapper,
       `remove ${title.toLowerCase()} from the list`
@@ -153,5 +169,9 @@ describe('To watch tests', () => {
   const expectTextInListAtIndex = (expectedText, index) => {
     expect(getVisibleListItems()[index].text()).toMatch(expectedText);
   };
-  const getVisibleListItems = () => watchList.findAll('li');
+  const getVisibleListItems = () =>
+    watchList.findAll([
+      '[aria-label="to-watch item"]',
+      '[aria-label="watched item"]',
+    ]);
 });
