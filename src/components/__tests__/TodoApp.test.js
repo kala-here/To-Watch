@@ -36,11 +36,9 @@ describe('To watch tests', () => {
       WATCHED: getElement(wrapper, 'click to show only watched items'),
     };
   });
-  // TODO: after each localstorage.clear()
 
   it('renders the header', () => {
     const header = wrapper.get('h1');
-
     expect(header.text()).toBe('TODO-WATCH');
   });
 

@@ -83,7 +83,6 @@ const STORAGE_KEY = 'vue-todomvc';
 
 export default {
   name: 'TodoApp',
-  // app initial state
   data: () => ({
     todos: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
     visibility: 'ALL',
@@ -96,7 +95,7 @@ export default {
       WATCH_LIST: {
         ariaLabel: 'click to show only not-yet-watched items',
         filterFunction: (todos) => todos.filter((todo) => !todo.completed),
-        label: 'Watch List',
+        label: 'Not Seen',
       },
       WATCHED: {
         ariaLabel: 'click to show only watched items',
@@ -106,7 +105,6 @@ export default {
     },
   }),
 
-  // watch todos change for localStorage persistence
   watch: {
     todos: {
       handler(todos) {
@@ -125,8 +123,6 @@ export default {
     },
   },
 
-  // methods that implement data logic.
-  // note there's no DOM manipulation here at all.
   methods: {
     addTodo(e) {
       const value = e.target.value.trim();
