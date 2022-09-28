@@ -86,7 +86,6 @@ export default {
   // app initial state
   data: () => ({
     todos: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
-    editedTodo: null,
     visibility: 'ALL',
     filterOptions: {
       ALL: {
@@ -144,27 +143,6 @@ export default {
 
     removeTodo(todo) {
       this.todos.splice(this.todos.indexOf(todo), 1);
-    },
-
-    editTodo(todo) {
-      this.beforeEditCache = todo.title;
-      this.editedTodo = todo;
-    },
-
-    doneEdit(todo) {
-      if (!this.editedTodo) {
-        return;
-      }
-      this.editedTodo = null;
-      todo.title = todo.title.trim();
-      if (!todo.title) {
-        this.removeTodo(todo);
-      }
-    },
-
-    cancelEdit(todo) {
-      this.editedTodo = null;
-      todo.title = this.beforeEditCache;
     },
 
     removeCompleted() {
