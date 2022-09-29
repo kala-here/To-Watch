@@ -1,22 +1,22 @@
 # TO-~~DO~~WATCH
 
+##### <span style="background-color: #f3ec78; background-image: linear-gradient(1deg, #41B883, #34495E); background-size: 100%; -webkit-background-clip: text; -moz-background-clip: text; -webkit-text-fill-color: transparent; -moz-text-fill-color: transparent; font-weight: 700;">A LeadingAgile quest to practice using an external API</span>
+
 </br>
 
-### A quest to practice using APIs
-
-Create a video streaming playlist across Netflix, Prime, and Disney+.
+Create a video streaming playlist across Netflix, Prime, Disney+ and more.
 </br>
 </br>
 Have you ever wanted to create a playlist of movies and shows you could stream back to back across multiple streaming platforms?
 </br>
 
-Do you hang out with kids and wish that you could create a playlist of only G-rated content for these kids to flip through?
+Do you hang out with kids and wish that you could create a playlist of only G-rated content for them to flip through?
 </br>
 
-Well then this quest, focused on practicing API integrations, should have a fun end-result for you. You’ll be showing this off to friends and family in no time.
+Well then this quest, focused on practicing API integrations, should have a fun ending for you. Prepare to show off to friends and family!
 </br>
 
-Picture a TO DO app quest but where each to do item is a movie or show TO WATCH from a different streaming service.
+Picture a TODO app where each list-item is a show TO WATCH from a different streaming service.
 </br>
 </br>
 
@@ -30,7 +30,7 @@ _Let’s build that._
 
 ## Quest challenges
 
-Use this API https://api.watchmode.com/docs/ to allows users to:
+Use [the Watchmode API](https://api.watchmode.com/docs/) to allow users to:
 
 1. browse shows
 2. add shows to their to-watch list
